@@ -27,6 +27,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a href="<?php echo base_url() ?>" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="<?php echo base_url('lancamento') ?>" class="nav-link">Lançamentos</a></li>
+                <li class="nav-item"><a href="<?php echo base_url('lancamento') ?>" class="nav-link">Lançamentos</a></li>
                 <li class="nav-item"><a href="<?php echo base_url('categoria') ?>" class="nav-link">Categorias</a></li>
                 <li class="nav-item"><a href="<?php echo base_url('orcamento') ?>" class="nav-link">Orçamentos</a></li>
                 <li class="nav-item"><a href="<?php echo base_url('relatorio') ?>" class="nav-link">Relatórios</a></li>

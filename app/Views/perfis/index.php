@@ -4,13 +4,13 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><?php echo anchor('', "Home") ?></li>
-        <li class="breadcrumb-item active" aria-current="pag">Lançamentos</li>
+        <li class="breadcrumb-item active" aria-current="pag">Perfis</li>
     </ol>
 </nav>
 
 <div class="card">
     <div class="card-header">
-        Lançamentos
+        Perfis
     </div>
     <div class="card-body">
         Conteúdo
