@@ -23,6 +23,7 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
+$routes->setAutoRoute(true);
 
 //$routes['lancamento'] = 'lancamentos';
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
@@ -40,6 +41,9 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+
+$routes->get('categoria/(:hash)/edit', 'Categoria::edit/$1');
+$routes->get('categoria/(:hash)/delete', 'Categoria::delete/$1');
 
 /*
  * --------------------------------------------------------------------
