@@ -1,6 +1,15 @@
 <?php echo $this->extend('_common/layout') ?>
 <?php echo $this->section('content') ?>
 
+<script>
+    function confirma() {
+        if (!confirm("Deseja excluir o registro?")) {
+            return false;
+        }
+        return true;
+    }
+</script>
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><?php echo anchor('', "Home") ?></li>
@@ -43,7 +52,7 @@
                             <td class="text-center">
                                 <?php echo anchor("categoria/{$categoria['chave']}/edit", 'Editar', ['class' => 'btn btn-success btn-sm']) ?>
                                 -
-                                <?php echo anchor("categoria/{$categoria['chave']}/delete", 'Excluir', ['class' => 'btn btn-danger btn-sm']) ?>
+                                <?php echo anchor("categoria/{$categoria['chave']}/delete", 'Excluir', ['class' => 'btn btn-danger btn-sm', 'onclick' => 'return confirma()']) ?>
                             </td>
                         </tr>
                         

@@ -68,11 +68,65 @@ class Categoria extends BaseController
         $post = $this->request->getPost();
         // dd($post);
         if ($this->categoriaModel->save($post)) {
-            echo 'Registro salvo comsucesso.';
+            // echo 'Registro salvo comsucesso.';
+            return redirect()->to('/mensagem/sucesso')->with('mensagem', [
+                'mensagem' => 'Registro salvo com sucesso',
+                'link' => [
+                    'to' => 'categoria',
+                    'texto' => 'Voltar para ategorias'
+                ]
+            ]);
         } else {
             echo view('categorias/form', [
-               'titulo' => 'Nova categoria',
+               'titulo' => !empty($post['chave']) ? 'Editar categoria' : 'Nova categoria',
                'errors' => $this->categoriaModel->errors()
+            ]);
+        }
+    }
+
+    /**
+     * Chama o form de edição com os campos populado
+     *
+     * @param [type] $chave
+     * @return void
+     */
+    public function edit($chave) {
+        
+        $categoria = $this->categoriaModel->addUserId($this->session->id_usuario)->getByChave($chave);
+
+        if (!is_null($categoria)) {
+            $data = [
+                'titulo' => 'Editar categoria',
+                'categoria' => $categoria
+            ];
+            echo view('categorias/form', $data);
+        } else {
+            return redirect()->to('/mensagem/erro')->with('mensagem', [
+                'mensagem' => 'Categoria não encontrada.',
+                'link' => [
+                    'to' => 'categoria',
+                    'texto' => 'Voltar para categorias'
+                ]
+            ]);
+        }
+    }
+
+    public function delete($chave = null) {
+        if ($this->categoriaModel->addUserId($this->session->id_usuario)->delete($chave)) {
+            return redirect()->to('/mensagem/sucesso')->with('mensagem', [
+                'mensagem' => 'Categoria excluida com sucesso.',
+                'link' => [
+                    'to' => 'categoria',
+                    'texto' => 'Voltar para ategorias'
+                ]
+            ]);
+        } else {
+            return redirect()->to('/mensagem/erro')->with('mensagem', [
+                'mensagem' => 'Erro ao excluir a categoria.',
+                'link' => [
+                    'to' => 'categoria',
+                    'texto' => 'Voltar para ategorias'
+                ]
             ]);
         }
     }

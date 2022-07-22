@@ -13,7 +13,7 @@ class CategoriaModel extends BaseModel {
     protected $useTimestamps = true;
 
     protected $beforeInsert = ['vinculaIdUsuario', 'geraChave'];
-    // protected $beforeUpdate = ['checaPropriedade'];
+    protected $beforeUpdate = ['checaPropriedade'];
 
     // protected $allowCallbacks = false;
 

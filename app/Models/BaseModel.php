@@ -23,14 +23,37 @@ class BaseModel extends Model {
      * @return void
      */
     protected function geraChave($data) {
-        $data['data']['usuarios_id'] = md5(uniqid(rand(), true));
+        $data['data']['chave'] = md5(uniqid(rand(), true));
 
+        return $data;
+    }
+
+    /**
+     * Verifica se o registro sendo excluído pertence ao seu dono ou a algum membro de sua família
+     *
+     * @param [type] $data
+     * @return void
+     */
+    protected function checaPropriedade($data) {
         return $data;
     }
 
     ##############################################################
     ///////////////////// MÉTODOS PÚBLICOS ///////////////////////
     ##############################################################
+
+    /**
+     * Injeja abusca por chave dentro da query
+     *
+     * @param string|null $chave
+     * @return mixed
+     */
+    public function getByChave(string $chave = null) {
+        if (!is_null($chave)) {
+            return $this->find($chave);
+        }
+    }
+
     /**
      * Retorna todos os registros
      *

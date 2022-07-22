@@ -18,7 +18,7 @@
         <?php echo form_open('categoria/store') ?>
         <div class="form-group col-sm-6">
             <label for="descricao">Descrição</label>
-            <input type="text" name="descricao" id="descricao" class="form-control" autofocus value="">
+            <input type="text" name="descricao" id="descricao" class="form-control" autofocus value="<?php echo !empty($categoria['descricao']) ? $categoria['descricao'] : set_value('descricao') ?> " autocomplete="off">
             <?php if (!empty($errors['descricao'])) : ?>
                 <div class="alert alert-danger mt-2"><?php echo $errors['descricao'] ?></div>
             <?php endif; ?>
@@ -30,7 +30,7 @@
                 'd' => 'Despesa',
                 'r' => 'Receita'
             ]; ?>
-            <?php echo form_dropdown('tipo', $options, null, ['id' => 'tipo', 'class' => 'form-control']) ?>
+            <?php echo form_dropdown('tipo', $options, !empty($categoria['tipo']) ? $categoria['tipo'] : set_value('tipo'), ['id' => 'tipo', 'class' => 'form-control']) ?>
             <?php if (!empty($errors['tipo'])) : ?>
                 <div class="alert alert-danger mt-2"><?php echo $errors['tipo'] ?></div>
             <?php endif; ?>
@@ -38,7 +38,7 @@
         <div class="form-group col-sm-12">
             <input type="submit" class="btn btn-primary" value="Salvar">
         </div>
-
+        <input type="hidden" name="chave" value="<?php echo !empty($categoria['chave']) ? $categoria['chave'] : set_value('chave') ?>">
         <?php echo form_close() ?>
     </div>
 </div>
