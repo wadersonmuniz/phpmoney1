@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP Money - Sistema de Controle Financeiro</title>
     <?php echo link_tag('assets/bootstrap/css/bootstrap.min.css') ?>
+    <script src="<?php echo base_url('assets/jquery/jquery-3.5.1.min.js') ?>"></script>
 
     <style>
         body {
@@ -16,6 +17,11 @@
             margin: 0;
         }
     </style>
+
+    <script>
+        //diponibiliza para toda a aplicação em js
+        var base_url = "<?php echo base_url() ?>" 
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -53,8 +59,7 @@
         <?php echo $this->renderSection('content') ?>
     </div>
     
-
-    <script src="<?php echo base_url('assets/jquery/jquery.slim.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/jquery.mask/jquery.mask.js') ?>"></script>
     <script src="<?php echo base_url('assets/bootstrap/js/bootstrap.min.js') ?>"></script>
 </body>
 </html>

@@ -28,7 +28,7 @@
             </div>
             <?php echo form_open('categoria', ['class' => 'form-inlie', 'method' => 'GET']) ?>
                 <div class="form-group d-flex justify-content-center my-3">
-                    <input type="search" name="search" autocomplete="off" placeholder="Busca..." class="form-control" value="<?php echo $search ?>">
+                    <input type="search" name="search" autocomplete="off" placeholder="Busca..." class="form-control" value="<?php echo !empty($search) ? $search : '' ?>">
                     <input type="submit" value="OK" class="ml-2 btn btn-primary">
                 </div>
             </form>
@@ -43,20 +43,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($categorias as $categoria): ?>
-                        <?php $classe = $categoria['tipo'] == 'd' ? 'text-danger' : 'text-success' ?>
-                        <?php $tipo_tratado = $categoria['tipo'] == 'd' ? 'Despesa' : 'Receita' ?>
+                    <?php if (count($categorias) > 0): ?>
+                        <?php foreach ($categorias as $categoria): ?>
+                            <?php $classe = $categoria['tipo'] == 'd' ? 'text-danger' : 'text-success' ?>
+                            <?php $tipo_tratado = $categoria['tipo'] == 'd' ? 'Despesa' : 'Receita' ?>
+                            <tr>
+                                <td class="pl-5 <?php echo $classe; ?>"><?php echo $categoria['descricao'] ?></td>
+                                <td class="pl-5 <?php echo $classe; ?>"><?php echo $tipo_tratado ?></td>
+                                <td class="text-center">
+                                    <?php echo anchor("categoria/{$categoria['chave']}/edit", 'Editar', ['class' => 'btn btn-success btn-sm']) ?>
+                                    -
+                                    <?php echo anchor("categoria/{$categoria['chave']}/delete", 'Excluir', ['class' => 'btn btn-danger btn-sm', 'onclick' => 'return confirma()']) ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
                         <tr>
-                            <td class="pl-5 <?php echo $classe; ?>"><?php echo $categoria['descricao'] ?></td>
-                            <td class="pl-5 <?php echo $classe; ?>"><?php echo $tipo_tratado ?></td>
-                            <td class="text-center">
-                                <?php echo anchor("categoria/{$categoria['chave']}/edit", 'Editar', ['class' => 'btn btn-success btn-sm']) ?>
-                                -
-                                <?php echo anchor("categoria/{$categoria['chave']}/delete", 'Excluir', ['class' => 'btn btn-danger btn-sm', 'onclick' => 'return confirma()']) ?>
-                            </td>
+                            <td colspan="3">Nenhuma categoria encontrada</td>
                         </tr>
-                        
-                    <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>

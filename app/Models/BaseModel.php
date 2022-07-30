@@ -29,6 +29,22 @@ class BaseModel extends Model {
     }
 
     /**
+     * Faz a conversão do valor brasileiro para americano
+     *
+     * @param [type] $data
+     * @return void
+     */
+    protected function corrigeValor($data) {
+        if (!isset($data['data']['valor'])) {
+            return $data;
+        }
+
+        $data['data']['valor'] = str_replace('.', '', $data['data']['valor']);
+        $data['data']['valor'] = str_replace(',', '.', $data['data']['valor']);
+        return $data;
+    }
+
+    /**
      * Verifica se o registro sendo excluído pertence ao seu dono ou a algum membro de sua família
      *
      * @param [type] $data
@@ -41,6 +57,21 @@ class BaseModel extends Model {
     ##############################################################
     ///////////////////// MÉTODOS PÚBLICOS ///////////////////////
     ##############################################################
+
+    /**
+     * Insere o campo tipo na tabela de busca (tabela-categorias)
+     *
+     * @param [type] $tipo
+     * @return void
+     */
+    public function addTipo($tipo = null) {
+
+        if (!is_null($tipo)) {
+            $this->where('tipo', $tipo);
+        }
+        return $this;
+    }
+
 
     /**
      * Injeja abusca por chave dentro da query
@@ -90,7 +121,7 @@ class BaseModel extends Model {
      */
     public function addUserId(int $id_usuario = null): object {
         if (!is_null($id_usuario)) {
-            $this->where('usuarios_id', $id_usuario);
+            $this->where("{$this->table}.usuarios_id", $id_usuario);
         }
         return $this;
     }
@@ -98,12 +129,13 @@ class BaseModel extends Model {
     /**
      * Injeta o campo search na query
      *
-     * @param [type] $search
+     * @param string|null $search
+     * @param string|null $campo
      * @return object
      */
-    public function addSearch(string $search = null): object {
-        if (!is_null($search)) {
-            $this->like('descricao', $search);
+    public function addSearch(string $search = null, string $campo = null): object {
+        if (!is_null($search) && !is_null($campo)) {
+            $this->like($campo, $search);
         }
         return $this;
     }

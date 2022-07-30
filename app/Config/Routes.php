@@ -45,6 +45,9 @@ $routes->get('/', 'Home::index');
 $routes->get('categoria/(:hash)/edit', 'Categoria::edit/$1');
 $routes->get('categoria/(:hash)/delete', 'Categoria::delete/$1');
 
+$routes->get('orcamento/(:hash)/edit', 'Orcamento::edit/$1');
+$routes->get('orcamento/(:hash)/delete', 'Orcamento::delete/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

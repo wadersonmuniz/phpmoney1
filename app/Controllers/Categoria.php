@@ -11,7 +11,7 @@ class Categoria extends BaseController
     public function __construct()
     {
         $this->categoriaModel = new CategoriaModel();
-    }
+    } 
 
     public function index()
     {
@@ -21,7 +21,7 @@ class Categoria extends BaseController
 
         $categorias = $this->categoriaModel
             ->addUserId($this->session->id_usuario)
-            ->addSearch($search)
+            ->addSearch($search, 'descricao')
             ->addOrder([
                 'order' => [
                     [
