@@ -61,5 +61,17 @@ class OrcamentoModel extends BaseModel {
         return $this->findAll();
     }
 
+    /**
+     * Retorna o valor do orçamento da categoria informada caso possua um orçamento definido.
+     *
+     * @param [type] $id_categoria
+     * @return mixed
+     */
+    public function valorOrcamento($id_categoria = null){
+        return $this
+            ->select('valor')
+            ->join('categorias', 'categorias.id = orcamentos.categorias_id')
+            ->where('categorias.id', $id_categoria)->first();
+    }
 
 }   

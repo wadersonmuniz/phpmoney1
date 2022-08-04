@@ -44,17 +44,22 @@ class Categoria extends BaseController {
         echo json_encode($result, JSON_PRETTY_PRINT);
     }
 
+    /**
+     * Retorna todas as categorias armazenadas pelo tipo
+     *
+     * @return void
+     */
     public function get() {
         if ($this->request->isAJAX()) {
             $result = [];
 
-            $tipo = $this->request->getPost('tipo');
+            $tipo = $this->request->getGet('tipo');
             if (!is_null($tipo)) {
                 $this->categoriaModel->addTipo($tipo);
             }
 
             $result = $this->categoriaModel
-            ->addUserId($this->sessiion->id_usuario)
+            ->addUserId($this->session->id_usuario)
             ->addOrder()
             ->getAll([
                 'campo' => 'descricao',

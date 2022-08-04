@@ -24,7 +24,7 @@
     <div class="card-body">
         <div class="row no-gutters d-flex justify-content-center justify-content-sm-between">
             <div class="my-3">
-                <?php echo anchor('orcamento/create', 'Nova Orçamento', ['class' => 'btn btn-primary']) ?>
+                <?php echo anchor('orcamento/create', 'Novo Orçamento', ['class' => 'btn btn-primary']) ?>
             </div>
             <?php echo form_open('orcamento', ['class' => 'form-inlie', 'method' => 'GET']) ?>
                 <div class="form-group d-flex justify-content-center my-3">

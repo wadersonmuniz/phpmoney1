@@ -79,9 +79,26 @@ class CategoriaModel extends BaseModel {
         }
 
         return $selectConteudo + $novaCategoria;
+     }
 
-        // dd($result);
-
-    }
-
+     /**
+      * Retorna todas as categorias com lançamentos
+      *
+      * @return void
+      */
+     public function getComLancamento(){
+        $this->select(
+            "
+            tipo,
+            categorias.usuarios_id,
+            categorias.descricao as descricao_categoria,
+            categorias.id as id_categoria,
+            lancamentos.descricao as descricao_lancamento,
+            lancamentos.id as id_lancamento
+            "
+        );
+        $this->join('lancamentos', 'lancamentos.categorias_id = categorias.id');
+        $this->groupBy('descricao_categoria');
+        return $this->findAll();
+     }
 }

@@ -45,6 +45,16 @@ class BaseModel extends Model {
     }
 
     /**
+     * converte a data para formato americano 
+     *
+     * @param [type] $data
+     * @return void
+     */
+    protected function converterData($data) {
+        return $data;
+    }
+
+    /**
      * Verifica se o registro sendo excluído pertence ao seu dono ou a algum membro de sua família
      *
      * @param [type] $data
@@ -59,6 +69,60 @@ class BaseModel extends Model {
     ##############################################################
 
     /**
+     * Injeta o campo categorias_id na query
+     *
+     * @param [type] $id_categoria
+     * @return object
+     */
+    public function getIdCategoria($id_categoria = null): object {
+        if(!is_null($id_categoria)){
+            $this->where('categorias_id', $id_categoria);
+        }
+        return $this;
+    }
+
+    /**
+     * Injeta o campo mês na query
+     *
+     * @param [type] $mes
+     * @return object
+     */
+    public function addMes($mes = null): object {
+        if(!is_null($mes)){
+            $this->where("MONTH(data)", $mes);
+        }
+        return $this;
+    }
+
+     /**
+     * Injeta o campo ano na query
+     *
+     * @param [type] $ano
+     * @return object
+     */
+    public function addAno($ano  = null): object {
+        if(!is_null($ano)){
+            $this->where("YEAR(data)", $ano);
+        }
+        return $this;
+    }
+
+    /**
+     * Retorna os registros baseados na informação de consolidação.
+     * É preciso que a tabela 'lancamento' exixsta na query para usar este método.
+     * 1 para Sim, 2 para Não
+     *
+     * @param integer|null $value
+     * @return object
+     */
+    public function addConsolidado(int $value = null): object{
+        if(!is_null($value)){
+            $this->where('lancamentos.consolidado', $value); //(tabela.campo)
+        }
+        return $this;
+    }
+
+    /**
      * Insere o campo tipo na tabela de busca (tabela-categorias)
      *
      * @param [type] $tipo
@@ -68,6 +132,10 @@ class BaseModel extends Model {
 
         if (!is_null($tipo)) {
             $this->where('tipo', $tipo);
+            if($this->table != 'categorias'){
+                $this->join('categorias', "categorias.id = {$this->table}.categorias_id AND {$this->table}.usuarios_id = categorias.usuarios_id");
+            }
+            
         }
         return $this;
     }
@@ -127,15 +195,21 @@ class BaseModel extends Model {
     }
 
     /**
-     * Injeta o campo search na query
+     * Injeta a busca por like na query
+     * Se o parâmetro or for true, faz a busca por orLike
      *
      * @param string|null $search
      * @param string|null $campo
+     * @param [type] $or
      * @return object
      */
-    public function addSearch(string $search = null, string $campo = null): object {
+    public function addSearch(string $search = null, string $campo = null, $or = null): object {
         if (!is_null($search) && !is_null($campo)) {
-            $this->like($campo, $search);
+            if(!is_null($or)){
+                $this->orlike($campo, $search);
+            } else {
+                $this->like($campo, $search);
+            }     
         }
         return $this;
     }

@@ -23,7 +23,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="submit" class="btn btn-primary" onclick="">Salvar</button>
+                <button type="submit" class="btn btn-primary" onclick="salvaNovaCategoria()">Salvar</button>
             </div>
         </div>
     </div>
